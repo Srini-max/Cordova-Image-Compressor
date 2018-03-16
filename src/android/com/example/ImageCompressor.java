@@ -60,12 +60,13 @@ public class ImageCompressor extends CordovaPlugin {
 
   public boolean compressToFile(CallbackContext callbackContext, String originalFileUri, String destinationFileUri, int width, int height, Bitmap.CompressFormat compressFormat, int quality) {
       boolean returnval = false;
+      PluginResult result = null;
       try {
         String compressedFilePath = ImageUtil.compressImage(originalFileUri, width, height, compressFormat, quality, destinationFileUri);
-        final PluginResult result = new PluginResult(PluginResult.Status.OK, (compressedFilePath));
+        result = new PluginResult(PluginResult.Status.OK, (compressedFilePath));
         returnval = true;
       } catch (IOException e) {
-        final PluginResult result = new PluginResult(PluginResult.Status.ERROR, (e.getMessage()));
+        result = new PluginResult(PluginResult.Status.ERROR, (e.getMessage()));
       }
       callbackContext.sendPluginResult(result);
       return returnval;
