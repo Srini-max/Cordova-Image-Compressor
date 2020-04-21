@@ -53,18 +53,12 @@ public class ImageCompressor extends CordovaPlugin {
     }
   
     public void getComprBase64(String base64,  CallbackContext callbackContext) {
-         try {
-        final Bitmap bitmapRes = ConvertBasetoBit(base64);
-        final String compressedBase64 = BitMapToString(bitmapRes);
-          if (callbackContext != null) {
+     
+                final Bitmap bitmapRes = ConvertBasetoBit(base64);
+                final String compressedBase64 = BitMapToString(bitmapRes);
                 Log.i(TAG, "Sucess Plugin base64 compressed Image" + compressedBase64);
                 callbackContext.success(compressedBase64);
-                callbackContext = null;
-            }
-         } catch (JSONException ex) {
-                callbackContext.error(ex.toString());
-                Log.i(TAG, "failed to convert base64 :-"+ ex);
-         }
+         
        // return compressedBase64;
     }
     
