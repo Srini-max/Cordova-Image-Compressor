@@ -29,8 +29,8 @@ import android.util.Base64;
 
 public class ImageCompressor extends CordovaPlugin {
   private static final String TAG = "ImageCompressor";
+      private static final String GET_COMPRESS_IMAGE = "getComprBase64";
   private Bitmap.CompressFormat compressFormat = Bitmap.CompressFormat.JPEG;
-    private CallbackContext mCurrentCallback;
    
   @Override
   public void initialize(CordovaInterface cordova, CordovaWebView webView) {
@@ -57,19 +57,25 @@ public class ImageCompressor extends CordovaPlugin {
     }
   @Override
   
-    public void getComprBase64(String merchantidentifier,  CallbackContext callbackContext) {
+    public void getComprBase64(String base64,  CallbackContext callbackContext) {
+         try {
         final Bitmap bitmapRes = ConvertBasetoBit(base64);
         Log.i(TAG,"bitmapRes ", new StringBuilder().append(bitmapRes.getHeight()).toString());
         final String compressedBase64 = BitMapToString(bitmapRes);
-          if (mCurrentCallback != null) {
+          if (callbackContext != null) {
                 Log.i(TAG, "Sucess Plugin base64 compressed Image" + compressedBase64);
-                mCurrentCallback.success(compressedBase64);
-                mCurrentCallback = null;
+                callbackContext.success(compressedBase64);
+                callbackContext = null;
             }
+         } catch (JSONException ex) {
+                callbackContext.error(ex.toString());
+                Log.i(TAG, "failed to convert base64 :-", ex);
+         }
        // return compressedBase64;
     }
     
     public static Bitmap ConvertBasetoBit(final String base64) {
+     
         final String encodedImage = base64;
         final byte[] decodedString = Base64.decode(encodedImage, 0);
         final Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
