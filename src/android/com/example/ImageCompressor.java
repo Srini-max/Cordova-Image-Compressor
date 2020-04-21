@@ -14,16 +14,18 @@ import org.json.JSONException;
 import android.util.Log;
 import android.net.Uri;
 import android.content.ContentUris;
-
-import java.util.Date;
-
 import android.graphics.Bitmap;
 
+import java.util.Date;
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.Callable;
 import android.os.Environment;
 
+import java.io.OutputStream;
+import java.io.ByteArrayOutputStream;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 
 public class ImageCompressor extends CordovaPlugin {
   private static final String TAG = "ImageCompressor";
@@ -34,7 +36,31 @@ public class ImageCompressor extends CordovaPlugin {
 
     Log.d(TAG, "Initializing ImageCompressor Plugin");
   }
-
+  
+  public static String getComprBase64(final String base64) {
+        final Bitmap bitmapRes = ConvertBasetoBit(base64);
+        Log.d(TAG,"bitmapRes ", new StringBuilder().append(bitmapRes.getHeight()).toString());
+        final String compressedBase64 = BitMapToString(bitmapRes);
+        return compressedBase64;
+    }
+    
+    public static Bitmap ConvertBasetoBit(final String base64) {
+        final String encodedImage = base64;
+        final byte[] decodedString = Base64.decode(encodedImage, 0);
+        final Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        Log.d(TAG,"Bitmap with args==>", new StringBuilder().append(decodedByte).toString());
+        return decodedByte;
+    }
+    
+    public static String BitMapToString(final Bitmap bitmap) {
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, (OutputStream)baos);
+        final byte[] b = baos.toByteArray();
+        final String temp = new String(Base64.encode(b, 2));
+        Log.d(TAG,"temp Bsde64==>", temp.toString());
+        return temp;
+    }
+  
   public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
     if (action.equals("compress")) {
       JSONObject jsonObject = args.getJSONObject(0);
