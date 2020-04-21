@@ -20,7 +20,7 @@
       </js-module>
       <config-file target="res/xml/config.xml" parent="/*">
         <feature name="ImageCompressor">
-          <param name="android-package" value="com.example.ImageCompressor" />
+          <param name="android-package" value="com.cordova.imgcompressor" />
           <param name="onload" value="true" />
         </feature>
       </config-file>
@@ -31,9 +31,9 @@
         </config-file>
 
 
-      <source-file src="src/android/com/example/ImageCompressor.java" target-dir="src/com/example/"
+      <source-file src="src/android/com/example/ImageCompressor.java" target-dir="src/com/cordova/imgcompressor"
        />
-      <source-file src="src/android/com/example/ImageUtil.java" target-dir="src/com/example/"
+      <source-file src="src/android/com/example/ImageUtil.java" target-dir="src/com/cordova/imgcompressor"
        />
     </platform>
 </plugin>
