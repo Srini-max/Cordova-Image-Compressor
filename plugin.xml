@@ -7,8 +7,8 @@
     <description></description>
     <license>MIT</license>
     <keywords></keywords>
-    <repo>https://github.com/driftyco/cordova-plugin-template.git</repo>
-    <issue>https://github.com/driftyco/cordova-plugin-template/issues</issue>
+    <repo>https://github.com/Srini-max/Cordova-Image-Compressor.git</repo>
+    <issue>https://github.com/Srini-max/Cordova-Image-Compressor/issues</issue>
 
     <!-- android -->
     <platform name="android">
@@ -31,9 +31,7 @@
         </config-file>
 
 
-      <source-file src="src/android/com/example/ImageCompressor.java" target-dir="src/com/cordova/imgcompressor"
-       />
-      <source-file src="src/android/com/example/ImageUtil.java" target-dir="src/com/cordova/imgcompressor"
-       />
+      <source-file src="src/android/ImageCompressor.java" target-dir="src/com/cordova/imgcompressor"/>
+
     </platform>
 </plugin>
