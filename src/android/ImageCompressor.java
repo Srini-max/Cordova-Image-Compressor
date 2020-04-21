@@ -51,7 +51,6 @@ public class ImageCompressor extends CordovaPlugin {
         }
         return true;
     }
-  @Override
   
     public void getComprBase64(String base64,  CallbackContext callbackContext) {
          try {
