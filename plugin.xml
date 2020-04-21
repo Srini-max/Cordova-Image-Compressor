@@ -10,14 +10,16 @@
     <repo>https://github.com/Srini-max/Cordova-Image-Compressor.git</repo>
     <issue>https://github.com/Srini-max/Cordova-Image-Compressor/issues</issue>
 
-    <!-- android -->
-    <platform name="android">
-      <js-module src="www/plugin.js" name="plugin">
+     <js-module src="www/plugin.js" name="plugin">
         <runs/>
 
         <!-- This is the window variable name you want, like window.MyCordovaPlugin -->
         <clobbers target="ImageCompressor" />
       </js-module>
+    
+    <!-- android -->
+    <platform name="android">
+     
       <config-file target="res/xml/config.xml" parent="/*">
         <feature name="ImageCompressor">
           <param name="android-package" value="com.cordova.imgcompressor.ImageCompressor" />
@@ -34,4 +36,31 @@
       <source-file src="src/android/ImageCompressor.java" target-dir="src/com/cordova/imgcompressor"/>
 
     </platform>
+    
+        <!-- iOS -->
+
+    <platform name="ios">
+    <config-file target="config.xml" parent="/*">
+      <feature name="SignInWithApple">
+        <param name="ios-package" value="SignInWithApple" />
+      </feature>
+    </config-file>
+
+    <config-file target="*-Debug.plist" parent="com.apple.developer.applesignin">
+      <array>
+        <string>Default</string>
+      </array>
+    </config-file>
+    <config-file target="*-Release.plist" parent="com.apple.developer.applesignin">
+      <array>
+        <string>Default</string>
+      </array>
+    </config-file>
+
+    <header-file src="src/ios/SignInWithApple.h" />
+    <source-file src="src/ios/SignInWithApple.m" />
+
+    <header-file src="src/ios/SIWAConverters.h" />
+    <source-file src="src/ios/SIWAConverters.m" />
+  </platform>
 </plugin>
