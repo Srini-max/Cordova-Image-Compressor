@@ -36,7 +36,7 @@ public class ImageCompressor extends CordovaPlugin {
   public void initialize(CordovaInterface cordova, CordovaWebView webView) {
     super.initialize(cordova, webView);
 
-    Log.id(TAG, "Initializing ImageCompressor Plugin");
+    Log.i(TAG, "Initializing ImageCompressor Plugin");
   }
     @Override
     public boolean execute(String action, CordovaArgs args, CallbackContext callbackContext) throws JSONException {
