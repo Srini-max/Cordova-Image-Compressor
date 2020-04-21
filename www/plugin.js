@@ -1,12 +1,14 @@
 
-var exec = require('cordova/exec');
+cordova.addConstructor(function() {
+    function ImageCompressor() {
 
-var PLUGIN_NAME = 'ImageCompressor';
+    }
 
-var ImageCompressor = {
-  compress: function(options, successCallback, errorCallback) {
-    exec(successCallback, errorCallback, PLUGIN_NAME, 'compress', [options]);
-  }
-};
+    ImageCompressor.prototype.getComprBase64 = function( base64, successCallback, errorCallback ){
+        cordova.exec(successCallback, errorCallback, "ImageCompressor", "getComprBase64", [base64]);
+    }
 
-module.exports = ImageCompressor;
+   
+    window.ImageCompressor = new ImageCompressor()
+    return window.ImageCompressor
+});
