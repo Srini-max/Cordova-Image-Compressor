@@ -63,7 +63,7 @@ public class ImageCompressor extends CordovaPlugin {
             }
          } catch (JSONException ex) {
                 callbackContext.error(ex.toString());
-                Log.i(TAG, "failed to convert base64 :-", ex);
+                Log.i(TAG, "failed to convert base64 :-"+ ex);
          }
        // return compressedBase64;
     }
@@ -72,7 +72,7 @@ public class ImageCompressor extends CordovaPlugin {
      
         final String encodedImage = base64;
         final byte[] decodedString = Base64.decode(encodedImage, 0);
-              Log.i(TAG,"temp encodedImage==>", encodedImage);
+              Log.i(TAG,"temp encodedImage==>"+ encodedImage);
         final Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         return decodedByte;
     }
@@ -82,7 +82,7 @@ public class ImageCompressor extends CordovaPlugin {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 70, (OutputStream)baos);
         final byte[] b = baos.toByteArray();
         final String temp = new String(Base64.encode(b, 2));
-        Log.i(TAG,"temp Bsde64==>", temp);
+        Log.i(TAG,"temp Bsde64==>"+ temp);
         return temp;
     }
   
