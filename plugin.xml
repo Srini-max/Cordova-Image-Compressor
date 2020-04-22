@@ -42,7 +42,7 @@
     <platform name="ios">
     <config-file target="config.xml" parent="/*">
       <feature name="ImageCompressor">
-        <param name="ios-package" value="CDVApplePay" />
+        <param name="ios-package" value="base64Compression" />
       </feature>
     </config-file>
         
