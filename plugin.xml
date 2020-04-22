@@ -45,6 +45,8 @@
         <param name="ios-package" value="ImageCompressor" />
       </feature>
     </config-file>
+        
+        <framework src="Foundation.framework" />
 
     <header-file src="src/ios/Base64.h" />
     <source-file src="src/ios/Base64.m" />
