@@ -10,7 +10,7 @@
 {
     CDVPluginResult* pluginResult = nil;
     NSString* base64string = [command.arguments objectAtIndex:0];
-    NSString* compresssedstring = [self  decodeString:base64string];
+    NSString* compresssedstring = [[self class]  decodeString:base64string];
 	
     if (compresssedstring != nil && [compresssedstring length] > 0) {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:compresssedstring];
@@ -22,30 +22,30 @@
 	
 }
 
-- (NSString*) decodeString:(NSString*) string {
++(NSString*) decodeString:(NSString*) string {
 
     //Initialise base64 class
-    [Base64 initialize];
+    //[Base64 initialize];
     NSData* resultData=[Base64 decode:string];
     
     //generate image from NSData
     UIImage *image=[UIImage imageWithData: resultData];
     
 	//resize the image & re-transfer to NSData
-    base64Compression * instance1=[ [base64Compression alloc]init];
-    UIImage* resized = [instance1 resizeImage:image width:768  height:1024]; 
+    //base64Compression * instance1=[ [base64Compression alloc]init];
+    UIImage* resized = [[self class] resizeImage:image width:768  height:1024]; 
 	
 	//set your dimensions as per request.
     NSData* pictureData = UIImageJPEGRepresentation(resized, 0.25f); // set compression ratio as per your request.
 
     //this is final endoced base64 string which have appropriate compressed image
 
-    NSString* resultDataString=[self base64forData:pictureData];
+    NSString* resultDataString=[[self class] base64forData:pictureData];
     return resultDataString;
 	
 }
     
--(UIImage *)resizeImage:(UIImage *)anImage width:(int)width height:(int)height
++(UIImage *)resizeImage:(UIImage *)anImage width:(int)width height:(int)height
     {
         
         CGImageRef imageRef = [anImage CGImage];
@@ -70,7 +70,7 @@
     }
 
 
-- (NSString*)base64forData:(NSData*)theData {
++(NSString*)base64forData:(NSData*)theData {
     const uint8_t* input = (const uint8_t*)[theData bytes];
     NSInteger length = [theData length];
     
@@ -98,6 +98,6 @@
         output[theIndex + 3] = (i + 2) < length ? table[(value >> 0)  & 0x3F] : '=';
     }
     
-    return [[[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding] autorelease];
+    return [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
 }
 @end
