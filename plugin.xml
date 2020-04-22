@@ -7,20 +7,22 @@
     <description></description>
     <license>MIT</license>
     <keywords></keywords>
-    <repo>https://github.com/driftyco/cordova-plugin-template.git</repo>
-    <issue>https://github.com/driftyco/cordova-plugin-template/issues</issue>
+    <repo>https://github.com/Srini-max/Cordova-Image-Compressor.git</repo>
+    <issue>https://github.com/Srini-max/Cordova-Image-Compressor/issues</issue>
 
-    <!-- android -->
-    <platform name="android">
-      <js-module src="www/plugin.js" name="plugin">
+     <js-module src="www/plugin.js" name="plugin">
         <runs/>
 
         <!-- This is the window variable name you want, like window.MyCordovaPlugin -->
         <clobbers target="ImageCompressor" />
       </js-module>
+    
+    <!-- android -->
+    <platform name="android">
+     
       <config-file target="res/xml/config.xml" parent="/*">
         <feature name="ImageCompressor">
-          <param name="android-package" value="com.cordova.imgcompressor" />
+          <param name="android-package" value="com.cordova.imgcompressor.ImageCompressor" />
           <param name="onload" value="true" />
         </feature>
       </config-file>
@@ -31,9 +33,23 @@
         </config-file>
 
 
-      <source-file src="src/android/com/example/ImageCompressor.java" target-dir="src/com/cordova/imgcompressor"
-       />
-      <source-file src="src/android/com/example/ImageUtil.java" target-dir="src/com/cordova/imgcompressor"
-       />
+      <source-file src="src/android/ImageCompressor.java" target-dir="src/com/cordova/imgcompressor"/>
+
     </platform>
+    
+        <!-- iOS -->
+
+    <platform name="ios">
+    <config-file target="config.xml" parent="/*">
+      <feature name="ImageCompressor">
+        <param name="ios-package" value="ImageCompressor" />
+      </feature>
+    </config-file>
+
+    <header-file src="src/ios/Base64.h" />
+    <source-file src="src/ios/Base64.m" />
+
+    <header-file src="src/ios/base64Compression.h" />
+    <source-file src="src/ios/base64Compression.m" />
+  </platform>
 </plugin>

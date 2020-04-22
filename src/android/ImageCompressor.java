@@ -1,6 +1,8 @@
 
 package com.cordova.imgcompressor;
 
+import org.apache.cordova.*;
+
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
@@ -36,41 +38,27 @@ public class ImageCompressor extends CordovaPlugin {
   public void initialize(CordovaInterface cordova, CordovaWebView webView) {
     super.initialize(cordova, webView);
 
-    Log.id(TAG, "Initializing ImageCompressor Plugin");
+    Log.i(TAG, "Initializing ImageCompressor Plugin");
   }
-    @Override
+
     public boolean execute(String action, CordovaArgs args, CallbackContext callbackContext) throws JSONException {
-        this.callback = callbackContext;
-
-        // These actions require the key to be already set
-        if (this.isInitialised()) {
-            this.callback.error("ImageCompressor not initialised.");
-        }
-
+      
         if (action.equals(GET_COMPRESS_IMAGE)) {
-            this.getComprBase64(args.optString(0),callbackContext);
+            getComprBase64(args.optString(0),callbackContext);
         } else {
             Log.i(TAG, "This action doesn't exist");
             return false;
         }
         return true;
     }
-  @Override
   
     public void getComprBase64(String base64,  CallbackContext callbackContext) {
-         try {
-        final Bitmap bitmapRes = ConvertBasetoBit(base64);
-        Log.i(TAG,"bitmapRes ", new StringBuilder().append(bitmapRes.getHeight()).toString());
-        final String compressedBase64 = BitMapToString(bitmapRes);
-          if (callbackContext != null) {
+     
+                final Bitmap bitmapRes = ConvertBasetoBit(base64);
+                final String compressedBase64 = BitMapToString(bitmapRes);
                 Log.i(TAG, "Sucess Plugin base64 compressed Image" + compressedBase64);
                 callbackContext.success(compressedBase64);
-                callbackContext = null;
-            }
-         } catch (JSONException ex) {
-                callbackContext.error(ex.toString());
-                Log.i(TAG, "failed to convert base64 :-", ex);
-         }
+         
        // return compressedBase64;
     }
     
@@ -78,8 +66,8 @@ public class ImageCompressor extends CordovaPlugin {
      
         final String encodedImage = base64;
         final byte[] decodedString = Base64.decode(encodedImage, 0);
+              Log.i(TAG,"temp encodedImage==>"+ encodedImage);
         final Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        Log.i(TAG,"Bitmap with args==>", new StringBuilder().append(decodedByte).toString());
         return decodedByte;
     }
     
@@ -88,43 +76,8 @@ public class ImageCompressor extends CordovaPlugin {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 70, (OutputStream)baos);
         final byte[] b = baos.toByteArray();
         final String temp = new String(Base64.encode(b, 2));
-        Log.i(TAG,"temp Bsde64==>", temp.toString());
+        Log.i(TAG,"temp Bsde64==>"+ temp);
         return temp;
     }
-  
-  public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
-    if (action.equals("compress")) {
-      JSONObject jsonObject = args.getJSONObject(0);
-      String originalFileUri = jsonObject.getString("uri");
-      String destinationDirectoryPath = jsonObject.getString("folderName");
-      String compressedFileName = jsonObject.getString("fileName");
-      int quality = jsonObject.getInt("quality");
-      int width = jsonObject.getInt("width");
-      int height = jsonObject.getInt("height");
 
-      File folder = new File(Environment.getExternalStorageDirectory() + "/" + destinationDirectoryPath);
-      boolean success = true;
-      if (!folder.exists()) {
-        success = folder.mkdir();
-      }
-      
-      return compressToFile(callbackContext, originalFileUri, folder.getPath() + File.separator + compressedFileName, width, height, this.compressFormat, quality);
-    } else {
-      return false;  
-    }
-  }
-
-  public boolean compressToFile(CallbackContext callbackContext, String originalFileUri, String destinationFileUri, int width, int height, Bitmap.CompressFormat compressFormat, int quality) {
-      boolean returnval = false;
-      PluginResult result = null;
-      try {
-        String compressedFilePath = ImageUtil.compressImage(originalFileUri, width, height, compressFormat, quality, destinationFileUri);
-        result = new PluginResult(PluginResult.Status.OK, (compressedFilePath));
-        returnval = true;
-      } catch (IOException e) {
-        result = new PluginResult(PluginResult.Status.ERROR, (e.getMessage()));
-      }
-      callbackContext.sendPluginResult(result);
-      return returnval;
-  }
 }
