@@ -7,8 +7,7 @@
 {
     CDVPluginResult* pluginResult = nil;
     NSString* base64string = [command.arguments objectAtIndex:0];
- 
-    NSString* compresssedstring = [[self class] decodeString:base64string];
+    NSString* compresssedstring = [self  decodeString:base64string];
 	
     if (compresssedstring != nil && [compresssedstring length] > 0) {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:compresssedstring];
@@ -20,7 +19,7 @@
 	
 }
 
-+ (NSString*) decodeString:(NSString*) string {
+- (NSString*) decodeString:(NSString*) string {
 
     //Initialise base64 class
     [Base64 initialize];
@@ -38,7 +37,7 @@
 
     //this is final endoced base64 string which have appropriate compressed image
 
-    NSString* resultDataString=[[self class] base64forData:pictureData];
+    NSString* resultDataString=[self base64forData:pictureData];
     return resultDataString;
 	
 }
@@ -68,7 +67,7 @@
     }
 
 
-+ (NSString*)base64forData:(NSData*)theData {
+- (NSString*)base64forData:(NSData*)theData {
     const uint8_t* input = (const uint8_t*)[theData bytes];
     NSInteger length = [theData length];
     
