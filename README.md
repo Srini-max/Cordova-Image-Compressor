@@ -4,7 +4,7 @@ Cordova plugin for CompressImage
 
 
 ## Notes
-This plugin only supports Android.    
+This plugin supports iOS and Android.    
 
 ## Installation
     cordova plugin add Cordova-Image-Compressor
