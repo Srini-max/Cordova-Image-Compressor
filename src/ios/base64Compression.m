@@ -2,12 +2,6 @@
 #import <Foundation/Foundation.h>
 #import "Base64.h"
 
-@interface base64Compression () 
-
-@property (nonatomic) CDVInvokedUrlCommand* command;
-
-@end
-
 @implementation base64Compression
 - (void)getComprBase64:(CDVInvokedUrlCommand*)command
 {
