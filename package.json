@@ -4,8 +4,9 @@
   "cordova": {
     "id": "cordova-image-compressor",
     "platforms": [
-      "android"
+      "android",
+       "iOS"
     ]
   },
-  "description": "Image compressor for cordova android application"
+  "description": "Image compressor for cordova application"
 }
