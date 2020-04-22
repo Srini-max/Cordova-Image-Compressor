@@ -41,26 +41,15 @@
 
     <platform name="ios">
     <config-file target="config.xml" parent="/*">
-      <feature name="SignInWithApple">
-        <param name="ios-package" value="SignInWithApple" />
+      <feature name="ImageCompressor">
+        <param name="ios-package" value="ImageCompressor" />
       </feature>
     </config-file>
 
-    <config-file target="*-Debug.plist" parent="com.apple.developer.applesignin">
-      <array>
-        <string>Default</string>
-      </array>
-    </config-file>
-    <config-file target="*-Release.plist" parent="com.apple.developer.applesignin">
-      <array>
-        <string>Default</string>
-      </array>
-    </config-file>
+    <header-file src="src/ios/Base64.h" />
+    <source-file src="src/ios/Base64.m" />
 
-    <header-file src="src/ios/SignInWithApple.h" />
-    <source-file src="src/ios/SignInWithApple.m" />
-
-    <header-file src="src/ios/SIWAConverters.h" />
-    <source-file src="src/ios/SIWAConverters.m" />
+    <header-file src="src/ios/base64Compression.h" />
+    <source-file src="src/ios/base64Compression.m" />
   </platform>
 </plugin>
