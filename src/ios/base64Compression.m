@@ -1,8 +1,11 @@
 #import "base64Compression.h"
-#import <Foundation/Foundation.h>
 #import "Base64.h"
+#import <Cordova/CDV.h>
+#import <Foundation/Foundation.h>
+
 
 @implementation base64Compression
+	
 - (void)getComprBase64:(CDVInvokedUrlCommand*)command
 {
     CDVPluginResult* pluginResult = nil;
