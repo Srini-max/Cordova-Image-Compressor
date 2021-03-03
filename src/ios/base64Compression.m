@@ -36,7 +36,7 @@
     UIImage* resized = [[self class] resizeImage:image width:768  height:1024]; 
 	
 	//set your dimensions as per request.
-    NSData* pictureData = UIImageJPEGRepresentation(resized, 0.25f); // set compression ratio as per your request.
+    NSData* pictureData = UIImageJPEGRepresentation(image, 0.25f); // set compression ratio as per your request.
 
     //this is final endoced base64 string which have appropriate compressed image
 
